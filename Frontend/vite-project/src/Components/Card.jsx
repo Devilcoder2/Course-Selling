@@ -2,7 +2,6 @@ import axios from "axios";
 
 const Card = ({ title, price, description, id, showButton }) => {
   const clickHandler = async (id) => {
-    console.log(id);
     const response = await axios.post(
       `http://localhost:3000/user/course/${id}`,
       {
