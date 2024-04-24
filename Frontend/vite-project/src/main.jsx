@@ -9,6 +9,7 @@ import PurchasedCourses from "./Components/User/PurchasedCourses.jsx";
 import User from "./Components/User/User.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import NewCourse from "./Components/Admin/NewCourse.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/user/purchasedCourses",
     element: <PurchasedCourses />,
+  },
+  {
+    path: "/admin/createcourse",
+    element: <NewCourse />,
   },
 ]);
 

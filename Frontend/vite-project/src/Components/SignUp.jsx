@@ -29,8 +29,7 @@ const SignUp = () => {
 
     alert(response.data.msg);
 
-    setUsername("");
-    setPassword("");
+    navigate("/signin");
   };
 
   const signinHandler = () => {

@@ -33,7 +33,11 @@ const PurchasedCourses = () => {
   return (
     <>
       {courses.length === 0 ? (
-        <div>Loading...</div>
+        <div className="ml-10 mt-4 flex justify-between">
+          <h1 className="text-4xl text-blue-700 font-semibold">
+            No course! Please Purchase a Course First
+          </h1>
+        </div>
       ) : (
         <div>
           <div className="ml-10 mt-4 flex justify-between">
