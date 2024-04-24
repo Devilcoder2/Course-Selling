@@ -25,20 +25,23 @@ router.post("/signin", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
-  const user = await User.find({
+  const user = await User.findOne({
     username,
     password,
   });
 
-  if (user) {
-    const token = jwt.sign(username, JWT_SECRET);
-    res.status(200).json({
-      msg: "User signin successfull",
-      token,
-    });
-  } else {
+  if (!user) {
     res.status(403).json({
       msg: "wrong username or password",
+    });
+    return;
+  }
+
+  if (user.username) {
+    const token = jwt.sign(username, JWT_SECRET);
+    res.status(200).json({
+      msg: "user signin successfull",
+      token,
     });
   }
 });
@@ -71,6 +74,21 @@ router.post("/course/:courseId", userMiddleware, async (req, res) => {
   });
 });
 
-router.get("/purchasedCourses", userMiddleware, async (req, res) => {});
+router.get("/purchasedCourses", userMiddleware, async (req, res) => {
+  const username = req.headers.username;
+  const user = await User.findOne({
+    username,
+  });
+
+  const courses = await Course.find({
+    _id: {
+      $in: user.purchasedCourses,
+    },
+  });
+
+  res.status(200).json({
+    courses,
+  });
+});
 
 module.exports = router;

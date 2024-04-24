@@ -30,20 +30,25 @@ router.post("/signin", async (req, res) => {
     password,
   });
 
-  if (admin) {
+  if (!admin) {
+    res.status(403).json({
+      msg: "Wrong",
+    });
+    return;
+  }
+
+  console.log(admin.username);
+
+  if (admin.username) {
     const token = jwt.sign(username, JWT_SECRET);
     res.status(200).json({
-      msg: "Admin login Successfully",
+      msg: "admin signin successfull",
       token,
-    });
-  } else {
-    res.status(403).json({
-      msg: "Admin does not exists with this username or password",
     });
   }
 });
 
-router.get("/courses", adminMiddleware, async (req, res) => {
+router.get("/courses", async (req, res) => {
   const courses = await Course.find({});
 
   res.status(200).json({
